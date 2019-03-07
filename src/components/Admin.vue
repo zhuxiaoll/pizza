@@ -1,19 +1,29 @@
 <template>
-  <div class="admin">
-    <h1>这是admin页面</h1>
-
-
+  <div class="admin container row">
+    <div class="col-7">
+      <Pizza></Pizza>
+    </div>
+    <div class="col-5">
+      <NewMenu></NewMenu>
+    </div>
   </div>
 </template>
 
 <script>
+  import Pizza from '@/components/Pizza.vue'
+  import NewMenu from '@/components/NewMenu'
   export default {
     name: 'Admin',
     data () {
       return {
 
       }
+    },
+    components:{
+      'Pizza':Pizza,
+      NewMenu
     }
+
   }
 </script>
 

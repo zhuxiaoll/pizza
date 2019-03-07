@@ -39,7 +39,7 @@
           <th scope="col">价格</th>
         </tr>
         </thead>
-        <!--<template v-if="newItems.length>0">-->
+        <template v-if="newItems.length>0">
           <tbody v-for="(item,index) in newItems" :key="index">
           <tr>
             <td>
@@ -60,12 +60,12 @@
             <td></td>
             <td colspan="2" class="text-info">商品总价格：<span class="strong">{{totalPrice}}</span></td>
           </tr>
-        <!--</template>-->
-        <!--<template v-else>-->
-          <!--<tr>-->
-            <!--<td colspan="3"><h3 class="text-danger ">此购物车空空如也~</h3></td>-->
-          <!--</tr>-->
-        <!--</template>-->
+        </template>
+        <template v-else>
+          <tr>
+            <td colspan="3"><h3 class="text-danger ">此购物车空空如也~</h3></td>
+          </tr>
+        </template>
       </table>
     </div>
   </div>
@@ -77,38 +77,38 @@
     name: 'Menu',
     data () {
       return {
-        // items:{},
+        items:{},
 
-        items:{
-            0:{
-              name:'芝士pizza',
-              text:'这是一款被大众喜爱的pizza.',
-              options:[
-                {
-                  size:'7寸',
-                  price:'70'
-                },
-                {
-                  size:'10寸',
-                  price:'100'
-                },
-              ]
-            },
-            1:{
-              name:'榴莲pizza',
-              text:'这是一款口味独特的pizza,依据客人口味自行购买.',
-              options:[
-                {
-                  size:'7寸',
-                  price:'90'
-                },
-                {
-                  size:'10寸',
-                  price:'140'
-                },
-              ]
-            }
-          },
+        // items:{
+        //     0:{
+        //       name:'芝士pizza',
+        //       text:'这是一款被大众喜爱的pizza.',
+        //       options:[
+        //         {
+        //           size:'7寸',
+        //           price:'70'
+        //         },
+        //         {
+        //           size:'10寸',
+        //           price:'100'
+        //         },
+        //       ]
+        //     },
+        //     1:{
+        //       name:'榴莲pizza',
+        //       text:'这是一款口味独特的pizza,依据客人口味自行购买.',
+        //       options:[
+        //         {
+        //           size:'7寸',
+        //           price:'90'
+        //         },
+        //         {
+        //           size:'10寸',
+        //           price:'140'
+        //         },
+        //       ]
+        //     }
+        //   },
 
         // 表示当我在左边菜单栏添加数据，newItems才有值。
         newItems:[
@@ -119,13 +119,22 @@
         ]
       }
     },
+    mounted(){
+      axios.get('./menu-zxl.json')
+        .then(res=>{
+          this.items = res.data
+          console.log(res.data)
+
+        })
+
+    },
     methods:{
       addToBasket(item,item1){
         var result = this.newItems.filter((item2)=>{
           return item.name == item2.name && item1.size == item2.size
 
         });
-        // console.log(result)
+        console.log(result)
         if(result != null && result.length>0){
           if(result[0].num>=10){
             result[0].num=10
